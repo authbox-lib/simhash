@@ -17,7 +17,7 @@ function Simhash(algorithm) {
 }
 
 Simhash.prototype._accumulateNumber = function(input) {
-    
+
 }
 
 Simhash.prototype._accumulate = function(input) {
@@ -57,6 +57,8 @@ Simhash.prototype._accumulate = function(input) {
 Simhash.prototype._hashBuffer = function(buffer) {
     if (this.algorithm === 'crc32') {
         return crc32.signed(buffer);
+    } else if (typeof this.algorithm === 'function') {
+      return this.algorithm(buffer);
     }
 
     var hash = crypto.createHash(this.algorithm);
